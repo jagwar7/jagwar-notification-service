@@ -1,8 +1,36 @@
 services:
   rabbitmq:
-    image: 'rabbitmq:latest'
+    image: 'rabbitmq:3-management'
+    container_name: rabbitmq-container
     environment:
-      - 'RABBITMQ_DEFAULT_PASS=secret'
-      - 'RABBITMQ_DEFAULT_USER=myuser'
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
     ports:
-      - '5672'
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - notification-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  notification-service:
+    build: .
+    container_name: notification-service-app
+    depends_on:
+      rabbitmq:
+        condition: service_healthy  
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_USERNAME=${SPRING_RABBITMQ_USERNAME}
+      - SPRING_RABBITMQ_PASSWORD=${SPRING_RABBITMQ_PASSWORD}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+    networks:
+      - notification-network
+
+networks:
+  notification-network:
+    driver: bridge
