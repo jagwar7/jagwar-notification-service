@@ -19,7 +19,7 @@ services:
 
   notification-service:
     build: .
-    container_name: notification-service-app
+    container_name: notification-service-container
     depends_on:
       rabbitmq:
         condition: service_healthy  
