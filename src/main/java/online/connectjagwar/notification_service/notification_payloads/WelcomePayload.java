@@ -7,7 +7,7 @@ public class WelcomePayload implements INotificationPayload{
     private String welcomeLink;
 
     public WelcomePayload(){
-        //  
+        //  EMPTY CONSTRUCTOR FOR SERIALIZATION
     }
 
     public WelcomePayload(String userName, String welcomeLink){

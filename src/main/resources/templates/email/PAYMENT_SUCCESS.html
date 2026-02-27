@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .box { border: 1px solid #ccc; padding: 20px; font-family: sans-serif; }
+        .highlight { color: #2ecc71; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Payment Received!</h2>
+        <p>Dear Customer,</p>
+        <p>Your order <span class="highlight" th:text="${data.orderId}">ORD-000</span> has been processed.</p>
+        
+        <ul>
+            <li>Product: <span th:text="${data.productName}">Item Name</span></li>
+            <li>Amount: <span th:text="${data.amount}">0.00</span></li>
+        </ul>
+        
+        <p>Thank you for shopping with ConnectJagwar!</p>
+    </div>
+</body>
+</html>

@@ -1,9 +1,5 @@
 package online.connectjagwar.notification_service.model;
 
-import java.util.Map;
-
-import org.springframework.messaging.handler.annotation.Payload;
-
 import online.connectjagwar.notification_service.enums.NotificationType;
 import online.connectjagwar.notification_service.interfaces.INotificationPayload;
 
