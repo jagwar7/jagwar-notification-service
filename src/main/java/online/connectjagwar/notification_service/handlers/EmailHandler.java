@@ -35,7 +35,7 @@ public class EmailHandler implements INotificationHandler {
     public void send(NotificationEvent event){
         String htmlContent = templateService.renderHTML(event.getTemplateName(), event.getPayload());
         
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessage mimeMessage = mailSender.createMimeMessage();  // ACCEPT HTML MESSAGE
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
 
         try {
