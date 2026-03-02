@@ -28,6 +28,14 @@ public class RabbitConfig {
     @Value("${spring.rabbitmq.virtual-host}")
     private String vhost;
 
+    @Value("${rabbitmq.queue.name}")
+    private String queueName;
+
+    @Value("${rabbitmq.notification.exchange}")
+    private String notificationExchange;
+
+    @Value("${rabbitmq.email.routing}")
+    private String emailRouting;
 
     @Bean
     public ConnectionFactory connectionFactory() {
@@ -46,17 +54,17 @@ public class RabbitConfig {
 
     @Bean
     public TopicExchange notificationExchange() {
-        return new TopicExchange("notification_exchange");
+        return new TopicExchange(notificationExchange);
     }
 
     @Bean
     public Queue emailQueue() {
-        return new Queue("email_queue", true);
+        return new Queue(queueName, true);
     }
 
     @Bean
     public Binding emailBinding(Queue emailQueue, TopicExchange notificationExchange) {
-        return BindingBuilder.bind(emailQueue).to(notificationExchange).with("notification.email");
+        return BindingBuilder.bind(emailQueue).to(notificationExchange).with(emailRouting);
     }
 
     @Bean

@@ -13,7 +13,7 @@ public class NotificationConsumer {
         this.dispatcher = dispatcher;
     }
 
-    @RabbitListener(queues = "${jagwar.notification.queue}")
+    @RabbitListener(queues = "${rabbitmq.queue.name}")
     public void listen(NotificationEvent event){
         System.out.println("Recieved message from rabbitmq for: " + event.getNotificationType());
         dispatcher.dispatch(event);
