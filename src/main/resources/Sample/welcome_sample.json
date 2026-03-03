@@ -1,0 +1,14 @@
+{
+  "notificationType": "EMAIL",
+  "templateName": "WELCOME_EMAIL",
+  "recipient": {
+    "email": "your email",
+    "name": "Jagwar",
+    "phone": "your number"
+  },
+  "payload": {
+    "payloadType": "welcome",
+    "userName": "Jagwar",
+    "welcomeLink": "http://link.com"
+  }
+}

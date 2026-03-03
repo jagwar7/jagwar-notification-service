@@ -1,5 +1,6 @@
 package online.connectjagwar.notification_service.handlers;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -27,6 +28,12 @@ public class EmailHandler implements INotificationHandler {
     private final TemplateService templateService;
     private final JavaMailSender mailSender;
 
+    @Value("${spring.email.sender.address}")
+    private String fromAdress;
+
+    @Value("${spring.email.sender.name}")
+    private String fromName;
+
     public EmailHandler(TemplateService templateService, JavaMailSender mailSender){
         this.templateService = templateService;
         this.mailSender = mailSender;
@@ -39,9 +46,12 @@ public class EmailHandler implements INotificationHandler {
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
 
         try {
+            mimeMessageHelper.setFrom(fromAdress, fromName);
             mimeMessageHelper.setTo(event.getRecipient().getEmail());
             mimeMessageHelper.setSubject(event.getTemplateName());
-            mimeMessageHelper.setText(htmlContent);
+            mimeMessageHelper.setText(htmlContent, true);
+
+            mailSender.send(mimeMessage);
         } catch (Exception e) {
             throw new RuntimeException("Failed to send message : ",e);
         }
