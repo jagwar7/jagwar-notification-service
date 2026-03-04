@@ -19,11 +19,11 @@ public class TemplateService {
         this.thymeleafEngine = thymeleafEngine;
     }
 
-    public String renderHTML(String templateString, INotificationPayload payload){
+    public String renderHTML(String templateName, INotificationPayload payload){
         Context context = new Context();                              // CREATE CONTEXT BUCKET
         
         context.setVariable("data", payload);                    // PASS PAYLOAD TO CONTEXT , IT WILL BE DECODED
 
-        return thymeleafEngine.process("email/", context);   // RETURN PROCESSED HTML
+        return thymeleafEngine.process("email/" + templateName, context);   // RETURN PROCESSED HTML
     }
 }

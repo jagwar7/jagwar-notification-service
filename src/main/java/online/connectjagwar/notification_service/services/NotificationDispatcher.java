@@ -37,7 +37,7 @@ public class NotificationDispatcher {
 
     public void dispatch(NotificationEvent event){
         // GET CORRESPONDING HANDLER BY NOTIFICAITON TYPE (EG: EMAIL, SMS, WHATSAPP)
-        INotificationHandler handler = notificationsHandlerMap.get(event.getNotificationType()); 
+        System.out.println("Processing " + event.getNotificationType() + " using template: " + event.getTemplateName());        INotificationHandler handler = notificationsHandlerMap.get(event.getNotificationType()); 
         if(handler != null){
             handler.send(event);
         }else{

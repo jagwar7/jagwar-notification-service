@@ -1,33 +1,33 @@
 services:
-  rabbitmq:
-    image: 'rabbitmq:3-management'
-    container_name: rabbitmq-container
-    environment:
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
-    ports:
-      - '5672:5672'
-      - '15672:15672'
-    networks:
-      - notification-network
-    healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 15s
-
   notification-service:
-    build: .
-    container_name: notification-service-container
-    depends_on:
-      rabbitmq:
-        condition: service_healthy  
+    build:
+      context: . 
+    container_name: notification-container
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
     environment:
-      - SPRING_RABBITMQ_HOST=rabbitmq
-      - SPRING_RABBITMQ_USERNAME=${SPRING_RABBITMQ_USERNAME}
-      - SPRING_RABBITMQ_PASSWORD=${SPRING_RABBITMQ_PASSWORD}
-      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      # GET RABBIT CONFIG FROM .ENV
+      SPRING_RABBITMQ_HOST: ${RABBIT_HOST} 
+      SPRING_RABBITMQ_PORT: ${RABBIT_PORT} 
+      SPRING_RABBITMQ_USERNAME: ${RABBIT_USERNAME}
+      SPRING_RABBITMQ_PASSWORD: ${RABBIT_PASSWORD}
+      SPRING_RABBITMQ_VHOST: ${RABBIT_VHOST}
+      
+      # GET MAIL CONFIG FROM ENV
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME}
+
+      SERVER_PORT: ${SERVER_PORT}
+      RABBIT_QUEUE_NAME: ${EMAIL_QUEUE_NAME}
+      NOTIFICATION_EXCHANGE: ${NOTIFICATION_EXCHANGE}
+      EMAIL_ROUTING: ${EMAIL_ROUTING}
+      
+      JAVA_OPTS: "-Xmx512m -Xms256m"
+      
     networks:
       - notification-network
 
