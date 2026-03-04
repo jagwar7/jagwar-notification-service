@@ -32,28 +32,35 @@ public class RabbitConfig {
     @Value("${spring.rabbitmq.virtual-host}")
     private String vhost;
 
-    @Value("${rabbitmq.queue.name}")
+
+    
+    //--------------------------------------------------
+    // RABBIT PROJECT CONFIGS
+    @Value("${rabbitmq.email.queue.name}")
     private String emailQueueName;
 
+    @Value("${rabbitmq.email.dlq.name}")
+    private String deadLetterQueue;
+    
     @Value("${rabbitmq.notification.exchange}")
     private String notificationExchange;
 
     @Value("${rabbitmq.notification.dlx}")
     private String deadLetterExchange;
 
-    @Value("${rabbitmq.email.routing}")
+    @Value("${rabbitmq.email.routing.key}")
     private String emailRouting;
 
-    @Value("${rabbitmq.email.dlq.routing}")
+    @Value("${rabbitmq.email.dlq.routing.key}")
     private String emailDlqRouting;
+    //--------------------------------------------------
 
-    @Value("${rabbitmq.queue.dlqName}")
-    private String deadLetterQueue;
+
+
 
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory factory = new CachingConnectionFactory();
-        
         
         factory.setHost(host);               // RABBIT HOST IP
         factory.setPort(port);               // RABBIT PORT
@@ -73,7 +80,8 @@ public class RabbitConfig {
         return new TopicExchange(notificationExchange);
     }
 
-    @Bean DirectExchange deadLDirectExchange(){
+    @Bean 
+    DirectExchange deadLetterExchange(){
         return new DirectExchange(deadLetterExchange);
     }
     //--------------------------------------------------------------------------------------------------
