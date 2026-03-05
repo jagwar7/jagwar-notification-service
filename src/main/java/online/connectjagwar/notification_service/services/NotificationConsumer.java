@@ -13,6 +13,12 @@ public class NotificationConsumer {
         this.dispatcher = dispatcher;
     }
 
+
+    /**
+     * @param event
+     * EVENT WILL BE MONITORED IN RABBIT QUEUE AND WILL PASSED TO DISPATCHER
+     */
+
     @RabbitListener(queues = "${rabbitmq.email.queue.name}", containerFactory = "rabbitContainerFactory")
     public void listen(NotificationEvent event){
         System.out.println("Recieved message from rabbitmq for: " + event.getNotificationType());
