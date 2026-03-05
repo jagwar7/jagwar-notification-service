@@ -36,8 +36,12 @@ public class NotificationDispatcher {
     }
 
     public void dispatch(NotificationEvent event){
-        // GET CORRESPONDING HANDLER BY NOTIFICAITON TYPE (EG: EMAIL, SMS, WHATSAPP)
-        System.out.println("Processing " + event.getNotificationType() + " using template: " + event.getTemplateName());        INotificationHandler handler = notificationsHandlerMap.get(event.getNotificationType()); 
+        // 1. GET EVENT FROM RABBITMQ
+        // 2. GET NOTIFICATION TYPE FROM JSON EVENT BLOCK
+        // 3. GET CORRESPONDING HANDLER BY NOTIFICAITON TYPE FROM MAP
+        // 4. CALL HANDLER.SEND() TO SEND 
+        System.out.println("Processing " + event.getNotificationType() + " using template: " + event.getTemplateName());        
+        INotificationHandler handler = notificationsHandlerMap.get(event.getNotificationType()); 
         if(handler != null){
             handler.send(event);
         }else{
