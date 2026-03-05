@@ -13,9 +13,18 @@ public class NotificationConsumer {
         this.dispatcher = dispatcher;
     }
 
-    @RabbitListener(queues = "${rabbitmq.queue.name}")
+    @RabbitListener(queues = "${rabbitmq.email.queue.name}", containerFactory = "rabbitContainerFactory")
     public void listen(NotificationEvent event){
         System.out.println("Recieved message from rabbitmq for: " + event.getNotificationType());
         dispatcher.dispatch(event);
     }
 }
+
+
+        // System.out.println("Recieved message from rabbitmq for: " + event.getNotificationType());
+        // if("Jagwar".equals(event.getRecipient().getName())){
+        //     System.out.println("Simulating fail for user Jagwar");
+        //     throw new RuntimeException("Failing to send");
+        // }else{
+        //     dispatcher.dispatch(event);
+        // }
