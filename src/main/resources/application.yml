@@ -1,0 +1,233 @@
+
+
+spring:
+  # ==========================================================
+  # 1. APPLICATION SETTINGS
+  # ==========================================================
+  application:
+    name: notification-service
+
+  # ==========================================================
+  # 2. RABBITMQ CONFIGURATION
+  # ==========================================================
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST}
+    port: ${SPRING_RABBITMQ_PORT}
+    username: ${SPRING_RABBITMQ_USERNAME}
+    password: ${SPRING_RABBITMQ_PASSWORD}
+    connection-timeout: 5000ms
+    template:
+      retry:
+        enabled: true
+        initial-interval: 2s
+        max-attempts: 10
+        multiplier: 2.0  
+    listener:
+      simple:
+        auto-startup: true
+        retry:
+          enabled: true
+          initial-interval: 2s
+          max-attempts: 5
+
+  # ==========================================================
+  # 3. MAIL (SMTP) CONFIGURATION
+  # ==========================================================
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+  # ==========================================================
+  # 4. THYMELEAF CONFIGURATION
+  # ==========================================================
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+
+server:
+  port: ${SERVER_PORT:8081}
+
+# ==========================================================
+# 5. CUSTOM RABBITMQ QUEUE SETTINGS
+# ==========================================================
+rabbitmq:
+  queue:
+    name: ${RABBIT_QUEUE_NAME:notification.queue}
+
+
+# ==========================================================
+# 6. LOGGING & DEBUGGING
+# ==========================================================
+logging:
+  level:
+    root: INFO
+    online.connectjagwar.notification_service: DEBUG
+    org.springframework.amqp: INFO
+    com.fasterxml.jackson: DEBUG
+
+
+
+# spring:
+
+#   # ==========================================================
+#   # 1. APPLICATION SETTINGS
+#   # ==========================================================
+#   application:
+#     name: notification-service
+  
+
+#   # ==========================================================
+#   # 2. RABBITMQ CONFIGURATION
+#   # ==========================================================
+#   rabbitmq:
+#     host: ${SPRING_RABBITMQ_HOST}
+#     port: ${RABBIT_PORT}
+#     username: ${SPRING_RABBITMQ_USERNAME}
+#     password: ${SPRING_RABBITMQ_PASSWORD}
+#     connection-timeout: 5000ms
+#     template:
+#       retry:
+#         enabled: true
+#         initial-interval: 2s
+#         max-attempts: 10
+#         multiplier: 2.0  
+#     listener:
+#       simple:
+#         auto-startup: true
+#         retry:
+#           enabled: true
+#           initial-interval: 2s
+#           max-attempts: 5
+
+
+#   # ==========================================================
+#   # 3. MAIL (SMTP) CONFIGURATION
+#   # ==========================================================
+#   mail:
+#     host: ${MAIL_HOST:localhost}  #EXPLITCLY OVERRIDING 
+#     port: ${MAIL_PORT:1025}
+#     username: ${MAIL_USERNAME}
+#     password: ${MAIL_PASSWORD}
+#     properties:
+#       mail:
+#         smtp:
+#           auth: true
+#           starttls:
+#             enable: true
+#             required: true
+#           connectiontimeout: 5000
+#           timeout: 5000
+#           writetimeout: 5000
+
+
+#   # ==========================================================
+#   # 4. THYMELEAF CONFIGURATION
+#   # ==========================================================
+#   thymeleaf:
+#     prefix: classpath:/templates/
+#     suffix: .html
+#     mode: HTML
+#     encoding: UTF-8
+#     cache: false
+
+# server:
+#   port: ${SERVER_PORT:8081}
+
+# rabbitmq:
+#   queue:
+#     name: ${RABBIT_QUEUE_NAME}
+
+
+# # ==========================================================
+# # 5. LOGGING & DEBUGGING
+# # ==========================================================
+# logging:
+#   level:
+#     root: INFO
+#     online.connectjagwar.notification_service: DEBUG
+#     org.springframework.amqp: INFO
+#     com.fasterxml.jackson: DEBUG
+
+
+
+
+
+
+
+
+
+# # ==========================================================
+# # 1. APPLICATION SETTINGS
+# # ==========================================================
+# spring.application.name=notification-service
+# server.port=${SERVER_PORT:8081}
+
+# # ==========================================================
+# # 2. RABBITMQ CONFIGURATION
+# # ==========================================================
+# spring:
+#   rabbitmq:
+#     host: ${SPRING_RABBITMQ_HOST:localhost}
+#     port: 5672
+#     username: ${SPRING_RABBITMQ_USERNAME:guest}
+#     password: ${SPRING_RABBITMQ_PASSWORD:guest}
+# # RABBITMQ RETRY & CONNECTION (Intermediate Approach)
+
+# spring.rabbitmq.connection-timeout=5000ms
+# spring.rabbitmq.template.retry.enabled=true
+# spring.rabbitmq.template.retry.initial-interval=2s
+# spring.rabbitmq.template.retry.max-attempts=10
+# spring.rabbitmq.listener.simple.auto-startup=true
+# spring.rabbitmq.listener.simple.retry.enabled=true
+
+# # NOTIFICATION QUEUE
+# rabbitmq.queue.name=${RABBITMQ_QUEUE_NAME:notification.queue}
+
+# # ==========================================================
+# # 3. MAIL (SMTP) CONFIGURATION
+# # ==========================================================
+# spring.mail.host=${MAIL_HOST:localhost}
+# spring.mail.port=${MAIL_PORT:1025}
+# spring.mail.username=${MAIL_USERNAME}
+# spring.mail.password=${MAIL_PASSWORD}
+
+# # SMTP SECURITY
+# spring.mail.properties.mail.smtp.auth=true
+# spring.mail.properties.mail.smtp.starttls.enable=true
+# spring.mail.properties.mail.smtp.starttls.required=true
+# spring.mail.properties.mail.smtp.connectiontimeout=5000
+# spring.mail.properties.mail.smtp.timeout=5000
+# spring.mail.properties.mail.smtp.writetimeout=5000
+
+# # ==========================================================
+# # 4. THYMELEAF CONFIGURATION
+# # ==========================================================
+# spring.thymeleaf.prefix=classpath:/templates/
+# spring.thymeleaf.suffix=.html
+# spring.thymeleaf.mode=HTML
+# spring.thymeleaf.encoding=UTF-8
+# spring.thymeleaf.cache=false
+
+# # ==========================================================
+# # 5. LOGGING & DEBUGGING
+# # ==========================================================
+# logging.level.online.connectjagwar.notification_service=DEBUG
+# logging.level.org.springframework.amqp=INFO
+
+
+# logging.level.com.fasterxml.jackson=DEBUG
