@@ -1,0 +1,29 @@
+declare -A data=(
+  ["/prod/notification-service/RABBIT_HOST"]="10.0.0.202"
+  ["/prod/notification-service/RABBIT_PORT"]="5672"
+  ["/prod/notification-service/RABBIT_USERNAME"]="jagwar"
+  ["/prod/notification-service/RABBIT_VHOST"]="/"
+  ["/prod/notification-service/MAIL_HOST"]="live.smtp.mailtrap.io"
+  ["/prod/notification-service/MAIL_PORT"]="587"
+  ["/prod/notification-service/SERVER_PORT"]="8081"
+  ["/prod/notification-service/MAIL_FROM_ADDRESS"]="noreply@connectjagwar.online"
+  ["/prod/notification-service/MAIL_FROM_NAME"]="ConnectJagwar Support"
+
+)
+
+
+declare -A applications=(
+  ["/prod/notification-service/RABBIT_NOTIFICATION_EXCHANGE"]="notification_exchange"
+  ["/prod/notification-service/RABBIT_DEAD_LETTER_EXCHANGE"]="dead_letter_exchange"
+  ["/prod/notification-service/EMAIL_ROUTING_KEY"]="notification.email"
+  ["/prod/notification-service/EMAIL_DLQ_ROUTING_KEY"]="notification.email.dlq"
+  ["/prod/notification-service/RABBIT_EMAIL_QUEUE_NAME"]="email-queue"
+  ["/prod/notification-service/RABBIT_EMAIL_DLQ_NAME"]="dead-letter-queue"
+)
+
+
+declare -A creds=(
+    ["/prod/notification-service/RABBIT_PASSWORD"]="FuckYouSabnur"
+    ["/prod/notification-service/MAIL_PASSWORD"]="a3c84fca80c97d8bcf7705b469ce9d7b"
+
+)
