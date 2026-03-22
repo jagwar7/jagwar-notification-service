@@ -96,7 +96,7 @@ EMAIL_DLQ_ROUTING_KEY=notification.email.dlq
 ECR_IMAGE_URL=${ECR_REPO_URL}:latest
 EOF\",
 
-                        \"aws s3 cp s3://${S3_BUCKET}/notification-service/docker-compose.yml /home/ubuntu/notification-service/docker-compose.yml\",
+                        \"aws s3 cp s3://${S3_BUCKET}/notification-service/docker-compose.yml /home/ubuntu/notification-service/compose.yml\",
                         \"cd /home/ubuntu/notification-service && docker compose pull && docker compose up -d\"
                     ]'
                     """
