@@ -40,7 +40,7 @@ pipeline {
 
                     echo "⏫Uploading compose file to S3..."
 
-                    sh "aws s3 cp docker-compose.yml s3://${S3_BUCKET}/notification-service/compose.yaml"
+                    sh "aws s3 cp compose.yaml s3://${S3_BUCKET}/notification-service/compose.yaml"
                 }
             }
         }
@@ -96,7 +96,7 @@ EMAIL_DLQ_ROUTING_KEY=notification.email.dlq
 ECR_IMAGE_URL=${ECR_REPO_URL}:latest
 EOF\",
 
-                        \"aws s3 cp s3://${S3_BUCKET}/notification-service/docker-compose.yml /home/ubuntu/notification-service/compose.yaml\",
+                        \"aws s3 cp s3://${S3_BUCKET}/notification-service/compose.yaml /home/ubuntu/notification-service/compose.yaml\",
                         \"cd /home/ubuntu/notification-service && docker compose pull && docker compose up -d\"
                     ]'
                     """
