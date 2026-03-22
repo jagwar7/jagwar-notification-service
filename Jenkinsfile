@@ -55,12 +55,19 @@ pipeline {
                     }
 
                     def rabbitHost      = getParam('/prod/notification-service/RABBIT_HOST')
+                    echo "rabbit host: ${rabbitHost} "
                     def rabbitUsername  = getParam('/prod/notification-service/RABBIT_USERNAME')
+                    echo "rabbitUsername: ${rabbitUsername} "
                     def rabbitPassword  = getParam('/prod/notification-service/RABBIT_PASSWORD')
+                    echo "rabbitPassword: ${rabbitPassword} "
                     def mailPassword    = getParam('/prod/notification-service/MAIL_PASSWORD')
+                    echo "mailPassword: ${mailPassword} "
                     def mailFrom        = getParam('/prod/notification-service/MAIL_FROM_ADDRESS')
+                    echo "mailFrom: ${mailFrom} "
                     def mailUser        = getParam('/prod/notification-service/MAIL_USERNAME')
+                    echo "mailUser: ${mailUser} "
                     def mailFromName    = getParam('/prod/notification-service/MAIL_FROM_NAME')
+                    echo "mailFromName: ${mailFromName} "
 
                     echo "Deploying to Private Instance: ${INSTANCE_ID}"
 
