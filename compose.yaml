@@ -5,6 +5,7 @@ services:
     container_name: notification-container
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
+      
     environment:
       # GET RABBIT CONFIG FROM .ENV
       SPRING_RABBITMQ_HOST: ${RABBIT_HOST} 

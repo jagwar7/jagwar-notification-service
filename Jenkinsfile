@@ -40,7 +40,7 @@ pipeline {
 
                     echo "⏫Uploading compose file to S3..."
 
-                    sh "aws s3 cp docker-compose.yml s3://${S3_BUCKET}/notification-service/compose.yml"
+                    sh "aws s3 cp compose.yaml s3://${S3_BUCKET}/notification-service/compose.yaml"
                 }
             }
         }
@@ -55,12 +55,19 @@ pipeline {
                     }
 
                     def rabbitHost      = getParam('/prod/notification-service/RABBIT_HOST')
+                    echo "rabbit host: ${rabbitHost} "
                     def rabbitUsername  = getParam('/prod/notification-service/RABBIT_USERNAME')
+                    echo "rabbitUsername: ${rabbitUsername} "
                     def rabbitPassword  = getParam('/prod/notification-service/RABBIT_PASSWORD')
+                    echo "rabbitPassword: ${rabbitPassword} "
                     def mailPassword    = getParam('/prod/notification-service/MAIL_PASSWORD')
+                    echo "mailPassword: ${mailPassword} "
                     def mailFrom        = getParam('/prod/notification-service/MAIL_FROM_ADDRESS')
+                    echo "mailFrom: ${mailFrom} "
                     def mailUser        = getParam('/prod/notification-service/MAIL_USERNAME')
+                    echo "mailUser: ${mailUser} "
                     def mailFromName    = getParam('/prod/notification-service/MAIL_FROM_NAME')
+                    echo "mailFromName: ${mailFromName} "
 
                     echo "Deploying to Private Instance: ${INSTANCE_ID}"
 
@@ -96,12 +103,26 @@ EMAIL_DLQ_ROUTING_KEY=notification.email.dlq
 ECR_IMAGE_URL=${ECR_REPO_URL}:latest
 EOF\",
 
-                        \"aws s3 cp s3://${S3_BUCKET}/notification-service/docker-compose.yml /home/ubuntu/notification-service/compose.yml\",
+                        \"aws s3 cp s3://${S3_BUCKET}/notification-service/compose.yaml /home/ubuntu/notification-service/compose.yaml\",
                         \"cd /home/ubuntu/notification-service && docker compose pull && docker compose up -d\"
                     ]'
                     """
                 }
             }
+        }
+    }
+
+    post{
+        success{
+            echo "🌐🚀 Successfully deployed Notification Microservice!"
+        }
+        failure{
+            echo "⚠️❌ Failed to deploy Notification Microservice!"
+        }
+        always{
+            echo "🧹🧼 Cleaning up local built image..."
+            sh "docker rmi ${ECR_REPO_NAME}:latest || true"
+            sh "docker rmi ${ECR_REPO_URL}:latest || true"
         }
     }
 }
