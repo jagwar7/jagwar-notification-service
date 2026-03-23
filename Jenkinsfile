@@ -70,18 +70,15 @@ pipeline {
                     echo "mailFromName: ${mailFromName} "
 
                     echo "Deploying to Private Instance: ${INSTANCE_ID}"
-
                     sh """
-                    aws ssm send-command \
-                    --instance-ids ${INSTANCE_ID} \
-                    --region ${AWS_REGION} \
-                    --document-name "AWS-RunShellScript" \
-                    --parameters 'commands=[
-                        \"aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com\",
-                        
-                        \"mkdir -p /home/ubuntu/notification-service\",
-
-                        \"cat <<\'EOF\' > /home/ubuntu/notification-service/.env
+            aws ssm send-command \
+            --instance-ids ${INSTANCE_ID} \
+            --region ${AWS_REGION} \
+            --document-name "AWS-RunShellScript" \
+            --parameters 'commands=[
+                \"aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com\",
+                \"mkdir -p /home/ubuntu/notification-service\",
+                \"cat <<EOF > /home/ubuntu/notification-service/.env
 RABBIT_HOST=${rabbitHost}
 RABBIT_PORT=5672
 RABBIT_USERNAME=${rabbitUsername}
@@ -102,11 +99,11 @@ EMAIL_ROUTING_KEY=notification.email
 EMAIL_DLQ_ROUTING_KEY=notification.email.dlq
 ECR_IMAGE_URL=${ECR_REPO_URL}:latest
 EOF\",
-
-                        \"aws s3 cp s3://${S3_BUCKET}/notification-service/compose.yaml /home/ubuntu/notification-service/compose.yaml\",
-                        \"cd /home/ubuntu/notification-service && docker compose pull && docker compose up -d\"
-                    ]'
-                    """
+                \"aws s3 cp s3://${S3_BUCKET}/notification-service/compose.yaml /home/ubuntu/notification-service/compose.yaml\",
+                \"cd /home/ubuntu/notification-service && docker compose pull && docker compose up -d\",
+                \"cd /home/ubuntu/notification-service && ls -la && docker ps -a\"
+            ]'
+            """
                 }
             }
         }
