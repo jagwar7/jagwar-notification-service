@@ -110,5 +110,19 @@ EOF\",
                 }
             }
         }
+
+        post{
+            success{
+                echo "🌐🚀 Successfully deployed Notification Microservice!"
+            }
+            failure{
+                echo "⚠️❌ Successfully deployed Notification Microservice!"
+            }
+            always{
+                echo "🧹🧼 Cleaning up local built image..."
+                sh "docker rmi ${ECR_REPO_NAME}:latest || true"
+                sh "docker rmi ${ECR_REPO_URL}:latest || true"
+            }
+        }
     }
 }
