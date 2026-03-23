@@ -117,7 +117,7 @@ EOF\",
             echo "🌐🚀 Successfully deployed Notification Microservice!"
         }
         failure{
-            echo "⚠️❌ Successfully deployed Notification Microservice!"
+            echo "⚠️❌ Failed to deploy Notification Microservice!"
         }
         always{
             echo "🧹🧼 Cleaning up local built image..."
