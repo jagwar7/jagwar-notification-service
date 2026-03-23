@@ -57,4 +57,27 @@ Docker & Docker Compose
 
 Java 21 JDK
 
+# 1. Clone the repo
+git clone https://github.com/jagwar7/jagwar-notification-service.git
+
+# 2. Setup Environment Variables
+run `cp .env.example .env` 
 Use: env.sample.txt and use your own credentails
+
+# 3. Spin up infrastructure
+docker compose up -d
+
+
+
+# 7. 🏗 CI/CD & Deployment ----------------------------------------------------------------------------------------------
+
+Pipeline: Code Push ---> GitHub Webhook ----> Jenkins Build ----> Push ECR ----> upload compose.yaml to S3
+                                                                                            ⬇️
+                                                                                            ⬇️
+                                                                                    Fetch Credentials
+                                                                                            ⬇️
+                                                                                            ⬇️
+                                                                                Make ENV in private EC2 
+                                                                                            ⬇️
+                                                                                            ⬇️
+                                                                                pull the image & Deploy 
