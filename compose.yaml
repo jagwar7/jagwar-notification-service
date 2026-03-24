@@ -1,11 +1,11 @@
 services:
   notification-service:
-    build:
-      context: . 
+    image: ${ECR_IMAGE_URL}
     container_name: notification-container
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
-      
+    env_file:
+      - .env
     environment:
       # GET RABBIT CONFIG FROM .ENV
       SPRING_RABBITMQ_HOST: ${RABBIT_HOST} 
