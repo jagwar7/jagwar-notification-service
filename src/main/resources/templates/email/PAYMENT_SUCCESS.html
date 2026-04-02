@@ -1,23 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <style>
-        .box { border: 1px solid #ccc; padding: 20px; font-family: sans-serif; }
-        .highlight { color: #2ecc71; font-weight: bold; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Received</title>
 </head>
-<body>
-    <div class="box">
-        <h2>Payment Received!</h2>
-        <p>Dear Customer,</p>
-        <p>Your order <span class="highlight" th:text="${data.orderId}">ORD-000</span> has been processed.</p>
-        
-        <ul>
-            <li>Product: <span th:text="${data.productName}">Item Name</span></li>
-            <li>Amount: <span th:text="${data.amount}">0.00</span></li>
-        </ul>
-        
-        <p>Thank you for purchase with ConnectJagwar!</p>
-    </div>
+<body style="margin: 0; padding: 0; background-color: #050a14; font-family: 'Segoe UI', Helvetica, Arial, sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #050a14;">
+        <tr>
+            <td align="center" style="padding: 40px 10px;">
+                <div style="max-width: 600px; background-color: #0a1122; border: 1px solid #1a243a; border-radius: 12px; padding: 40px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    
+                    <div style="margin-bottom: 25px;">
+                        <span style="color: #ff6b00; font-size: 40px; font-weight: bold;">⚡</span>
+                    </div>
+
+                    <h2 style="color: #ffffff; font-size: 28px; margin-bottom: 10px; letter-spacing: -0.5px;">Payment Received!</h2>
+                    <p style="color: #a0aec0; font-size: 16px; margin-bottom: 30px;">Hi there, your transaction was successful.</p>
+
+                    <div style="background: #111b33; border-radius: 8px; padding: 20px; margin-bottom: 30px; text-align: left; border-left: 4px solid #ff6b00;">
+                        <p style="margin: 0 0 10px 0; color: #ffffff; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7;">Order Summary</p>
+                        <p style="color: #ffffff; font-size: 18px; margin: 10px 0;">
+                            ID: <span style="color: #ff6b00; font-weight: bold;" th:text="${data.orderId}">ORD-000</span>
+                        </p>
+                        <div style="height: 1px; background: #1a243a; margin: 15px 0;"></div>
+                        <p style="color: #cbd5e0; margin: 5px 0;">Product: <strong style="color: #ffffff;" th:text="${data.productName}">Item Name</strong></p>
+                        <p style="color: #cbd5e0; margin: 5px 0;">Amount: <strong style="color: #ffffff;" th:text="${data.amount}">$0.00</strong></p>
+                    </div>
+
+                    <a href="#" style="display: inline-block; background-color: #3182ce; color: #ffffff; padding: 14px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; transition: background 0.3s ease;">
+                        View Dashboard
+                    </a>
+
+                    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #1a243a;">
+                        <p style="color: #718096; font-size: 13px; line-height: 1.5;">
+                            Thank you for choosing <br>
+                            <strong style="color: #ffffff;">Flash <span style="color: #ff6b00;">⚡</span> Auth</strong> by JAGWAR
+                        </p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
