@@ -1,6 +1,7 @@
 services:
   notification-service:
-    image: ${ECR_IMAGE_URL}
+    build: .
+    image: notification-microservice:latest
     container_name: notification-container
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
@@ -27,7 +28,7 @@ services:
       # RABBIT PROJECT ENVIORMENT VARIABLES
       RABBIT_EMAIL_QUEUE_NAME: ${RABBIT_EMAIL_QUEUE_NAME}
       RABBIT_EMAIL_DLQ_NAME: ${RABBIT_EMAIL_DLQ_NAME}
-
+  
       RABBIT_NOTIFICATION_EXCHANGE: ${RABBIT_NOTIFICATION_EXCHANGE}
       RABBIT_DEAD_LETTER_EXCHANGE: ${RABBIT_DEAD_LETTER_EXCHANGE}
 
