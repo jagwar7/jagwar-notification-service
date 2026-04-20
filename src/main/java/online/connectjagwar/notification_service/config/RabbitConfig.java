@@ -63,7 +63,7 @@ public class RabbitConfig {
         CachingConnectionFactory factory = new CachingConnectionFactory();
         
         factory.setHost(host);               // RABBIT HOST IP
-        // factory.setPort(port);               // RABBIT PORT
+        factory.setPort(port);               // RABBIT PORT
         factory.setUsername(username);       // RABBIT USER NAME
         factory.setPassword(password);       // RABBIT PASSWORD
         factory.setVirtualHost(vhost);       // Using the root vhost we cleaned up
