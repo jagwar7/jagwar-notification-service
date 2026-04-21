@@ -59,7 +59,7 @@ public class RabbitConfig {
 
 
     @Bean
-    public ConnectionFactory connectionFactory() {
+    public ConnectionFactory connectionFactory() throws Exception {
         CachingConnectionFactory factory = new CachingConnectionFactory();
         
         factory.setHost(host);               // RABBIT HOST IP
