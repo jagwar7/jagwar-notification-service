@@ -68,6 +68,8 @@ public class RabbitConfig {
         factory.setPassword(password);       // RABBIT PASSWORD
         factory.setVirtualHost(vhost);       // Using the root vhost we cleaned up
         
+        factory.getRabbitConnectionFactory().useSslProtocol();
+
         factory.setConnectionTimeout(15000);
         return factory;
     }
